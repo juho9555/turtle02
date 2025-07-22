@@ -1,7 +1,6 @@
 # turtle02
-from pyamaze import maze,COLOR,agent
+from pyamaze import maze
 
-m=maze(20,20)
 m.CreateMaze(theme=COLOR.light)
 a=agent(m,filled=True,footprints=True)
 m.tracePath({a:m.path})
