@@ -95,21 +95,24 @@ def wall_following_algorithm(maze_obj):
         return True
     
     def get_wall_following_direction():
-        """오른손 법칙에 따라 다음 이동 방향을 결정합니다."""
-        # 현재 방향의 인덱스 찾기
-        current_idx = right_hand_order.index(current_direction)
-        
-        # 오른쪽부터 시계방향으로 확인 (오른손 법칙)
-        for i in range(4):
-            # 오른쪽부터 시계방향으로 방향 확인
-            check_idx = (current_idx + 1 + i) % 4
+    
+        idx = right_hand_order.index(current_direction)
+
+        # 오른쪽, 직진, 왼쪽, 뒤쪽 순서
+        check_orders = [
+            (idx + 1) % 4,  # 오른쪽
+            idx,            # 직진
+            (idx - 1) % 4,  # 왼쪽
+            (idx + 2) % 4   # 뒤쪽
+        ]
+
+        for check_idx in check_orders:
             check_direction = right_hand_order[check_idx]
-            
             if can_move_to(current_pos, check_direction):
                 return check_direction
-        
-        # 모든 방향이 막혀있으면 현재 방향 유지 (실제로는 발생하지 않아야 함)
+
         return current_direction
+
     
     def move_toward_goal():
         """목표점을 향해 직진합니다."""
